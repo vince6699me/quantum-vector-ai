@@ -8,9 +8,11 @@ export const Header = () => {
 
   const navItems = [
     { label: "Home", href: "/" },
-    { label: "Services", href: "#services" },
-    { label: "How It Works", href: "#how-it-works" },
-    { label: "Contact", href: "#contact" },
+    { label: "About", href: "/about" },
+    { label: "Services", href: "/#services" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "Reviews", href: "/reviews" },
+    { label: "Contact", href: "/#contact" },
   ];
 
   return (

@@ -5,19 +5,20 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { useWebSocket } from '@/hooks/useWebSocket';
 import { cn } from '@/lib/utils';
+
+interface Message {
+  id: string;
+  type: 'user' | 'bot';
+  content: string;
+  timestamp: number;
+}
 
 export const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [messages, setMessages] = useState<Message[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
-  
-  // Connect to chatbot WebSocket on same host/port
-  const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-  const wsUrl = `${protocol}//${window.location.host}/chatbot`;
-  
-  const { isConnected, messages, sendMessage } = useWebSocket(wsUrl);
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -26,10 +27,44 @@ export const ChatWidget = () => {
     }
   }, [messages]);
 
-  const handleSend = () => {
-    if (inputValue.trim() && isConnected) {
-      sendMessage(inputValue.trim());
+  const handleSend = async () => {
+    if (inputValue.trim()) {
+      const userMessage: Message = {
+        id: Date.now().toString(),
+        type: 'user',
+        content: inputValue.trim(),
+        timestamp: Date.now()
+      };
+      setMessages(prev => [...prev, userMessage]);
+      const currentInput = inputValue.trim();
       setInputValue('');
+
+      try {
+        const response = await fetch('http://localhost:5678/webhook-test/chatbot', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: currentInput })
+        });
+        const data = await response.json();
+        const content = Array.isArray(data) && data.length > 0 && data[0].text
+          ? data[0].text
+          : data.response || data.message || data.content || (data.text ? data.text : JSON.stringify(data));
+        const botMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          type: 'bot',
+          content: content,
+          timestamp: Date.now()
+        };
+        setMessages(prev => [...prev, botMessage]);
+      } catch (error) {
+        const errorMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          type: 'bot',
+          content: 'Sorry, there was an error processing your request.',
+          timestamp: Date.now()
+        };
+        setMessages(prev => [...prev, errorMessage]);
+      }
     }
   };
 
@@ -59,10 +94,10 @@ export const ChatWidget = () => {
                   <span
                     className={cn(
                       'w-2 h-2 rounded-full',
-                      isConnected ? 'bg-green-500' : 'bg-red-500'
+                      'bg-green-500'
                     )}
                   />
-                  {isConnected ? 'Online' : 'Connecting...'}
+                  Online
                 </p>
               </div>
             </div>
@@ -126,16 +161,15 @@ export const ChatWidget = () => {
           <div className="p-4 border-t border-border">
             <div className="flex gap-2">
               <Input
-                placeholder={isConnected ? "Type your message..." : "Connecting..."}
+                placeholder="Type your message..."
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
-                disabled={!isConnected}
                 className="flex-1"
               />
               <Button
                 onClick={handleSend}
-                disabled={!inputValue.trim() || !isConnected}
+                disabled={!inputValue.trim()}
                 size="icon"
                 className="bg-primary hover:bg-primary/90"
               >

@@ -90,3 +90,38 @@ Preferred communication style: Simple, everyday language.
 - Focus states with ring utilities for accessibility
 - Disabled states with reduced opacity
 - Animated elements using CSS animations and Tailwind utilities
+
+### Chatbot Widget (WebSocket Integration)
+
+**Architecture**
+- Real-time chat widget with WebSocket communication for bi-directional messaging
+- Custom Vite plugin (`vite-chatbot-plugin.ts`) integrates WebSocket server into dev environment
+- Dedicated `/chatbot` endpoint path to avoid conflicts with Vite's HMR WebSocket
+- Components: `ChatWidget.tsx` (UI), `useWebSocket.ts` (connection hook)
+
+**Features**
+- Collapsible chat interface in bottom-right corner matching QuantumVector AI theme
+- Real-time message exchange with automatic connection management
+- Auto-reconnect logic with exponential backoff (max 5 attempts)
+- Connection status indicators and error handling
+- Optimistic UI updates for sent messages
+- Message history persistence during session
+
+**Technical Implementation**
+- WebSocket server built with Node.js `ws` library
+- Server runs alongside Vite dev server on port 5000 via custom plugin
+- Client hook manages connection lifecycle, reconnection, and message queuing
+- UI built with shadcn/ui components (Card, ScrollArea, Button, Input)
+- TypeScript interfaces for type-safe message handling
+
+**Development vs Production**
+- Current setup is development-only (plugin runs during `vite dev` mode)
+- For production deployment, WebSocket server needs separate hosting:
+  - Option 1: Standalone Node/Express server serving both static assets and WebSocket
+  - Option 2: Managed WebSocket service (e.g., Pusher, Ably, Socket.io with hosting)
+  - Option 3: Serverless WebSocket (AWS API Gateway WebSocket, Railway, Render)
+
+**Dependencies**
+- `ws`: WebSocket server implementation
+- `@types/ws`: TypeScript definitions for ws library
+- Integrated with existing React state management and UI components

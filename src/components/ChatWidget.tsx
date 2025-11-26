@@ -186,11 +186,11 @@ export const ChatWidget = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
-      {/* Chat Bubble Message when closed */}
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+      {/* Chat Bubble Message when closed - positioned above button */}
       {!isOpen && !isMinimized && (
-        <div className="mb-4 animate-chatbot-slide-up">
-          <Card className="w-auto max-w-xs bg-background border-border shadow-lg">
+        <div className="mb-3 animate-chatbot-slide-up">
+          <Card className="w-auto max-w-xs bg-background border-border shadow-lg mr-2">
             <div className="p-3 flex items-start gap-2">
               <Avatar className="h-6 w-6 bg-primary flex-shrink-0 mt-0.5">
                 <AvatarFallback className="bg-primary text-primary-foreground text-xs">
@@ -203,6 +203,10 @@ export const ChatWidget = () => {
               </div>
             </div>
           </Card>
+          {/* Connector arrow pointing to button */}
+          <div className="flex justify-end pr-3">
+            <div className="w-0 h-0 border-l-8 border-r-0 border-t-8 border-l-transparent border-t-border mr-2"></div>
+          </div>
         </div>
       )}
 
@@ -365,11 +369,8 @@ export const ChatWidget = () => {
       <Button
         onClick={handleOpen}
         size="icon"
-        className="h-14 w-14 rounded-full shadow-lg bg-primary hover:bg-primary/90 transition-all hover:scale-110 animate-chatbot-float relative"
+        className="h-14 w-14 rounded-full shadow-lg bg-primary hover:bg-primary/90 transition-all hover:scale-110 animate-chatbot-float"
       >
-        {hasNewMessage && !isOpen && (
-          <span className="absolute top-0 right-0 w-3 h-3 bg-destructive rounded-full animate-chatbot-pulse" />
-        )}
         {isOpen && !isMinimized ? (
           <X className="h-6 w-6" />
         ) : (

@@ -1,0 +1,251 @@
+# AI Coding Agent Prompt: Implement Missing Frontend Features from QuantumAI to QuantumVector
+
+## Context
+You are working on the QuantumVector AI project (quantum.md). Review the advanced features present in the QuantumAI project (vector.md) that are missing from QuantumVector and implement them to achieve feature parity and enhancement. Focus ONLY on frontend features - no backend or API changes.
+
+## Missing Features to Implement
+
+### 1. Enhanced Hero Section
+**Current State (quantum.md):** Basic hero with 3 stats (500+ Clients, 98% Satisfaction, 3x ROI)
+**Target State (vector.md):** Advanced hero with:
+- Animated particles background with floating icons (Zap, Brain, Cpu, Sparkles)
+- 4 stats cards (1000+ Models, 99.9% Uptime, 10x Efficiency, plus existing metrics)
+- Badge text: Change from "AI-Powered Business Solutions" to "Next-Gen AI Solutions"
+- Headline: Change to "Transform Your Business with Quantum Intelligence"
+- Enhanced gradient overlays and visual effects
+- Scroll indicator animation at bottom
+
+**Implementation Tasks:**
+- Add particle system component with floating animated icons
+- Update stats from 3 to 4 cards with new metrics
+- Enhance gradient overlays and background effects
+- Implement scroll indicator component
+
+### 2. Interactive Features Showcase
+**Missing Component:** FeaturesShowcase section (not present in quantum.md)
+**Required Features:**
+- Interactive features grid with 4 main features:
+  - Intelligent Chatbots (with stats)
+  - Workflow Automation
+  - Predictive Analytics
+  - AI Security
+- Right-side demo area with `AIChatPreview` component
+- Play buttons for interactive demos
+- Gradient cards with hover effects
+- Stats display for each feature
+
+**Implementation Tasks:**
+- Create `FeaturesShowcase.tsx` component in `src/components/sections/`
+- Build `AIChatPreview.tsx` component for live chat preview (mock data, no real API)
+- Add hover interactions and stat counters
+- Integrate between HeroSection and ServicesSection
+
+### 3. Testimonials Section
+**Missing Component:** TestimonialsSection (not in quantum.md)
+**Required Features:**
+- Auto-rotating featured testimonial (large card format)
+- Quote display with avatar, 5-star ratings, and metrics
+- Navigation dots and arrows for manual control
+- Grid of 4 mini testimonial cards below
+- All testimonials from CTOs/CEOs with specific metrics (e.g., "300% response improvement")
+
+**Implementation Tasks:**
+- Create `TestimonialsSection.tsx` in `src/components/sections/`
+- Implement auto-rotation logic (setInterval with pause on hover)
+- Add testimonial data structure with avatars from Unsplash
+- Create navigation controls (dots + arrows)
+- Add metrics display for each testimonial
+
+### 4. Services Page Enhancement
+**Current State:** 10 service cards with basic "Learn More" links
+**Target State:** 
+- 11 service cards (add "Customer Service Hub" if not present)
+- Modal system for each service with:
+  - Detailed overview
+  - Features checklist
+  - Benefits checklist
+  - Use cases checklist
+  - Timeline card
+  - Pricing card
+  - CTA button
+
+**Implementation Tasks:**
+- Create `ServiceModal.tsx` component with tabs/sections
+- Add modal trigger to each service card
+- Populate detailed content for all 11 services
+- Add timeline and pricing information per service
+
+### 5. Sister Companies Section
+**Missing Component:** SisterCompaniesSection in Services page
+**Required Features:**
+- 2 sister company cards:
+  - **Archon Cybersecurity:** Icon, tagline, description, features/benefits, industries badges, "Visit" link
+  - **Apex Capital:** Icon, tagline, description, features/benefits, industries badges, "Visit" link
+- Ecosystem CTA at bottom
+- Professional card design with gradients and hover effects
+
+**Implementation Tasks:**
+- Create `SisterCompaniesSection.tsx` component
+- Design company cards with icons and badges
+- Add to Services page after ServicesSection
+- Include external links and hover animations
+
+### 6. Enhanced ChatbotWidget (Frontend Only)
+**Current State:** Basic chat with webhook integration
+**Target State:** Advanced features including:
+- Quick action buttons (Services, Pricing, Demo)
+- Typing dots animation (already exists, ensure implemented)
+- Welcome message on first open
+- Enhanced animations:
+  - `chatbot-float` (continuous floating effect)
+  - `chatbot-pulse` (pulsing glow)
+  - `slide-up` for messages
+  - `glow` effect on new messages
+- New message indicator dot on closed button
+- Bot avatar with green online status dot
+- Minimize button (in addition to close)
+- Session persistence using localStorage (frontend only)
+
+**Implementation Tasks:**
+- Keep existing webhook integration (no API changes)
+- Add session ID generation and localStorage persistence
+- Implement quick action buttons in chat interface
+- Add welcome message logic
+- Create minimize functionality (separate from close)
+- Add new message indicator dot to closed state
+- Enhance animations in CSS (add missing keyframes)
+- Ensure bot avatar has online status indicator
+
+### 7. Contact Page Enhancement
+**Current State:** Basic form + contact info
+**Target State:** Expanded contact information:
+- All existing fields maintained
+- Add Twitter: @QuantumvectorA
+- Add YouTube: @QuantumVectorAI
+- Add Telegram: @QuantumBot
+- Add Response Time card
+- Add "Call Now" quick action card
+- Enhanced layout with better visual hierarchy
+
+**Implementation Tasks:**
+- Update Contact.tsx with additional social links
+- Add Response Time information card
+- Create "Call Now" CTA card with phone link
+- Enhance grid layout for better organization
+
+### 8. Animation & Style Enhancements
+**Missing Animations (from vector.md):**
+- `chatbot-float`, `chatbot-pulse`, `chatbot-typing`, `chatbot-slide-up`, `chatbot-glow`
+- `particles-float`
+- `gradient-x` (shimmer effect)
+
+**Missing CSS Variables:**
+- `--gradient-chatbot`
+- `--gradient-message`
+- `--shadow-glow` (specific 40px primary glow)
+
+**Implementation Tasks:**
+- Add all missing keyframe animations to `src/index.css`
+- Add chatbot-specific gradient variables
+- Enhance shadow system
+- Apply new animations to relevant components
+
+### 9. Color Palette Consistency
+**Adjustments Needed:**
+Ensure these exact HSL values match vector.md:
+- Primary: `hsl(199 89% 48%)` (vibrant blue)
+- Background: `hsl(222 47% 11%)` (dark gray-blue)
+- Verify all gradient definitions match vector.md exactly
+
+### 10. Footer Enhancement
+**Current State:** Basic footer with company info and links
+**Target State:**
+- Ensure Services links include all 11 services
+- Company links should include Privacy and Terms pages (create placeholder pages if needed)
+- Update email to: quantumvectorllc@gmail.com (if different)
+- Verify social icons and links are consistent
+
+## Technical Requirements
+
+### File Structure to Create/Modify:
+```
+src/components/sections/
+  ├── FeaturesShowcase.tsx (NEW)
+  ├── TestimonialsSection.tsx (NEW)
+  ├── SisterCompaniesSection.tsx (NEW)
+  └── AIChatPreview.tsx (NEW)
+
+src/components/
+  └── ChatWidget.tsx (MODIFY - major enhancements, frontend only)
+  └── ServiceModal.tsx (NEW)
+
+src/pages/
+  ├── Index.tsx (MODIFY - add FeaturesShowcase, TestimonialsSection)
+  ├── Services.tsx (MODIFY - add modals, SisterCompaniesSection)
+  ├── Contact.tsx (MODIFY - expand contact info)
+  ├── Privacy.tsx (NEW - placeholder page)
+  ├── Terms.tsx (NEW - placeholder page)
+  └── About.tsx (VERIFY - should match vector.md)
+
+src/index.css (MODIFY - add animations and variables)
+tailwind.config.ts (VERIFY - ensure all animations configured)
+```
+
+### ChatWidget Frontend Implementation Notes:
+- Keep existing webhook integration (`https://n8n.fpr.net/webhook/chatbot`)
+- Generate unique session IDs in frontend using UUID or timestamp
+- Store session ID in localStorage for persistence
+- Add session ID to webhook requests as additional field
+- Implement loading states and error handling with mock fallback messages
+- All session management done client-side only
+
+### Design Principles:
+- Maintain dark theme with glassmorphism effects
+- Use Tailwind utility classes only (no custom CSS beyond animations)
+- Ensure all components are fully responsive (mobile-first)
+- Add smooth transitions (cubic-bezier) to all interactive elements
+- Implement hover effects: scale, glow, translate
+- Use Lucide React icons consistently
+
+### Mock Data Requirements:
+For components that would normally fetch from API:
+- **AIChatPreview:** Use hardcoded sample messages array
+- **Testimonials:** Create array of testimonial objects with names, companies, quotes, metrics
+- **Service Modals:** Hardcode all service details, features, benefits, use cases
+- **Sister Companies:** Hardcode company information
+- **ChatWidget:** Generate session IDs locally, no real backend session creation
+
+### Testing Checklist:
+- [ ] All animations work smoothly across browsers
+- [ ] ChatWidget session persists across page navigation (localStorage)
+- [ ] Testimonials auto-rotate and pause on hover
+- [ ] Service modals open/close properly with all content
+- [ ] Forms validate and show toast notifications
+- [ ] Mobile responsive on all new components
+- [ ] All links and CTAs functional
+- [ ] Sister company links navigate correctly
+- [ ] Particle animations perform well (no lag)
+
+## Priority Order:
+1. **High Priority:** Hero Section enhancements (immediate visual impact)
+2. **High Priority:** FeaturesShowcase and TestimonialsSection (major UX improvement)
+3. **Medium Priority:** ChatbotWidget enhancements (visual improvements only)
+4. **Medium Priority:** Services page modals and Sister Companies
+5. **Low Priority:** Contact page expansion and style/animation refinements
+
+## Success Criteria:
+- All frontend features from vector.md are present in quantum.md project
+- Visual consistency matches the advanced design system
+- No breaking changes to existing functionality
+- Code follows existing project patterns and TypeScript standards
+- All components are accessible and performant
+- No backend or API dependencies added - keep existing webhook integration
+
+## Implementation Notes:
+- Use mock/hardcoded data for all new features
+- Maintain existing webhook integration for ChatWidget
+- Focus on UI/UX enhancements and animations
+- Ensure all interactive elements work with frontend state only
+- Use localStorage for any persistence needs (sessions, preferences)
+
+Begin implementation starting with the Hero Section enhancements and FeaturesShowcase, as these provide immediate visual impact with the least complexity.

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Twitter, Youtube, Send, Clock, PhoneCall } from "lucide-react";
 
 export const ContactSection = () => {
   const { toast } = useToast();
@@ -174,7 +174,67 @@ export const ContactSection = () => {
               </div>
             </div>
 
-            <div className="pt-6">
+            {/* Social Links */}
+            <div className="space-y-3">
+              <h4 className="font-semibold">Connect With Us</h4>
+              <div className="grid grid-cols-3 gap-3">
+                <a 
+                  href="https://twitter.com/QuantumvectorA" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 p-3 rounded-lg bg-card border border-border hover:border-primary/50 transition-colors"
+                >
+                  <Twitter className="h-4 w-4 text-primary" />
+                  <span className="text-sm">Twitter</span>
+                </a>
+                <a 
+                  href="https://youtube.com/@QuantumVectorAI" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 p-3 rounded-lg bg-card border border-border hover:border-primary/50 transition-colors"
+                >
+                  <Youtube className="h-4 w-4 text-primary" />
+                  <span className="text-sm">YouTube</span>
+                </a>
+                <a 
+                  href="https://t.me/QuantumBot" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 p-3 rounded-lg bg-card border border-border hover:border-primary/50 transition-colors"
+                >
+                  <Send className="h-4 w-4 text-primary" />
+                  <span className="text-sm">Telegram</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Response Time & Call Now Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div className="p-4 rounded-lg bg-card border border-border">
+                <div className="flex items-center gap-2 mb-2">
+                  <Clock className="h-5 w-5 text-primary" />
+                  <h4 className="font-semibold">Response Time</h4>
+                </div>
+                <p className="text-muted-foreground text-sm">
+                  Average response within 2 hours during business hours
+                </p>
+              </div>
+
+              <a 
+                href="tel:+1-555-0123" 
+                className="p-4 rounded-lg bg-primary/10 border border-primary/30 hover:bg-primary/20 transition-colors group"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <PhoneCall className="h-5 w-5 text-primary" />
+                  <h4 className="font-semibold">Call Now</h4>
+                </div>
+                <p className="text-muted-foreground text-sm group-hover:text-primary transition-colors">
+                  Speak directly with our team
+                </p>
+              </a>
+            </div>
+
+            <div className="pt-2">
               <div className="p-6 rounded-lg bg-card border border-border">
                 <h4 className="font-semibold mb-2">Business Hours</h4>
                 <p className="text-muted-foreground text-sm">

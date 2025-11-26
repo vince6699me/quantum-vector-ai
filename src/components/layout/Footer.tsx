@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Zap, Mail, Linkedin, Twitter, Github } from "lucide-react";
+import { Zap, Mail, Linkedin, Twitter, Github, Youtube, Send } from "lucide-react";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -18,13 +18,19 @@ export const Footer = () => {
               Transform your business with cutting-edge AI solutions. We help companies integrate AI into their operations seamlessly.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://twitter.com/QuantumvectorA" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://linkedin.com/company/quantumvector" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://youtube.com/@QuantumVectorAI" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                <Youtube className="h-5 w-5" />
+              </a>
+              <a href="https://t.me/QuantumBot" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                <Send className="h-5 w-5" />
+              </a>
+              <a href="https://github.com/quantumvector" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                 <Github className="h-5 w-5" />
               </a>
             </div>
@@ -72,14 +78,14 @@ export const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link to="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link to="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
                   Terms of Service
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -92,11 +98,11 @@ export const Footer = () => {
               © {currentYear} QuantumVector AI Solutions. All rights reserved.
             </p>
             <a 
-              href="mailto:contact@quantumvector.ai" 
+              href="mailto:quantumvectorllc@gmail.com" 
               className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm"
             >
               <Mail className="h-4 w-4" />
-              contact@quantumvector.ai
+              quantumvectorllc@gmail.com
             </a>
           </div>
         </div>

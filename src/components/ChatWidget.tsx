@@ -105,19 +105,19 @@ export const ChatWidget = () => {
       setIsTyping(true);
 
       try {
-        const response = await fetch('http://localhost:5678/webhook-test/chatbot', {
+        const response = await fetch('https://n8n.fpr.net/webhook-test/chatbot', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
-            message: text,
-            sessionId: sessionId 
+            message: text
           })
         });
         const data = await response.json();
         
-        const content = Array.isArray(data) && data.length > 0 && data[0].text
-          ? data[0].text
-          : data.response || data.message || data.content || (data.text ? data.text : JSON.stringify(data));
+        // Handle response format: [{ output: "..." }]
+        const content = Array.isArray(data) && data.length > 0 && data[0].output
+          ? data[0].output
+          : data.output || data.response || data.message || data.content || JSON.stringify(data);
         
         setTimeout(() => {
           const botMessage: Message = {
@@ -130,6 +130,7 @@ export const ChatWidget = () => {
           setIsTyping(false);
         }, 500);
       } catch (error) {
+        console.error('Webhook error:', error);
         setTimeout(() => {
           const errorMessage: Message = {
             id: (Date.now() + 1).toString(),

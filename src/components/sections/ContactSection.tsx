@@ -142,8 +142,8 @@ export const ContactSection = () => {
                 </div>
                 <div>
                   <div className="font-medium mb-1">Email</div>
-                  <a href="mailto:contact@quantumvector.ai" className="text-muted-foreground hover:text-primary transition-colors">
-                    contact@quantumvector.ai
+                  <a href="mailto:quantumvectorllc@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+                    quantumvectorllc@gmail.com
                   </a>
                 </div>
               </div>

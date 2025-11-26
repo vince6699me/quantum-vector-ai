@@ -24,9 +24,9 @@ Preferred communication style: Simple, everyday language.
 - Custom design system defined in CSS variables using HSL color space for consistent theming
 
 **Component Structure**
-- Layout components: Header (fixed navigation with mobile menu) and Footer (company info, links, social media)
-- Section components: HeroSection, ServicesSection, HowItWorksSection, ContactSection
-- Page components: Index (home), About, Pricing, NotFound
+- Layout components: Header (fixed navigation with mobile menu) and Footer (company info, links, social media with Twitter, LinkedIn, YouTube, Telegram, GitHub)
+- Section components: HeroSection (with ParticleBackground and animated stats), FeaturesShowcase (with AIChatPreview demo), ServicesSection, TestimonialsSection (auto-rotating with navigation), SisterCompaniesSection, HowItWorksSection, ContactSection (with social links and quick action cards)
+- Page components: Index (home), About, Pricing, Services (with ServiceModal), Privacy, Terms, NotFound
 - Comprehensive UI component library (40+ components) from shadcn/ui including forms, dialogs, cards, navigation, etc.
 
 **State Management**

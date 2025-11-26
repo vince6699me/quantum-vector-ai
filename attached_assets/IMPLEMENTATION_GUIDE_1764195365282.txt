@@ -1,0 +1,201 @@
+# QuantumAI Services Popup and Pricing Implementation Guide
+
+## Overview
+This guide explains how to implement the services popup modal on the services page with detailed service information, and how to modify the pricing page to use Kenyan Shillings (Ksh).
+
+## Part 1: Services Popup Implementation
+
+### Current Implementation State
+The services popup is already implemented in the ServicesSection component (`src/components/sections/ServicesSection.tsx`). Here's how it works:
+
+### How the Services Popup Works
+
+#### 1. Service Data Structure
+Each service object in the `services` array contains comprehensive information:
+
+```typescript
+const services = [
+  {
+    id: "custom-llm",
+    icon: Brain,
+    title: "Custom LLM Development",
+    description: "Build domain-specific language models...",
+    category: "Advanced AI",
+    detailedInfo: {
+      overview: "...",
+      features: [...],
+      benefits: [...],
+      useCases: [...],
+      timeline: "8-16 weeks",
+      pricing: "Starting from $50,000"  // Current USD pricing
+    }
+  }
+];
+```
+
+#### 2. Modal State Management
+The component uses React state to control modal visibility:
+
+```typescript
+const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
+
+const openModal = (service: typeof services[0]) => {
+  setSelectedService(service);
+};
+
+const closeModal = () => {
+  setSelectedService(null);
+};
+```
+
+#### 3. Modal Rendering
+The modal is conditionally rendered when `selectedService` is not null:
+
+```typescript
+{selectedService && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+    {/* Modal content */}
+  </div>
+)}
+```
+
+#### 4. Modal Content Structure
+The modal displays:
+- Service icon and title in header
+- Overview section
+- Key features (with check icons)
+- Benefits (with check icons)
+- Use cases (in styled cards)
+- Timeline and pricing cards
+- Call-to-action buttons
+
+#### 5. User Interactions
+- Click "Learn More" button to open modal
+- Click outside modal or close button to close
+- Press Escape key to close modal
+- Modal is fully responsive and accessible
+
+### Converting Popup Pricing to Kenyan Shillings
+
+To convert the pricing from USD to Ksh, update the `pricing` field in each service's `detailedInfo`:
+
+**Current format:**
+```typescript
+pricing: "Starting from $50,000"
+```
+
+**Update to Ksh (approximate conversion rate: 1 USD ≈ 130 Ksh):**
+```typescript
+pricing: "Starting from Ksh 6,500,000"
+```
+
+Conversion estimates for all services:
+- $50,000 → Ksh 6,500,000
+- $25,000 → Ksh 3,250,000
+- $35,000 → Ksh 4,550,000
+- $30,000 → Ksh 3,900,000
+- $20,000 → Ksh 2,600,000
+- $15,000 → Ksh 1,950,000
+- $40,000 → Ksh 5,200,000
+- $45,000 → Ksh 5,850,000
+- etc.
+
+## Part 2: Pricing Page Implementation
+
+### Current Pricing Page Structure
+The pricing page is located at `src/pages/Pricing.tsx` and includes:
+
+#### 1. Three Pricing Tiers
+- Starter ($999/month)
+- Professional ($2,999/month)
+- Enterprise (Custom pricing)
+
+#### 2. Plan Features
+Each plan includes detailed feature lists and descriptions.
+
+#### 3. Additional Sections
+- Hero section with call-to-action
+- FAQ section
+
+### Converting Pricing Page to Kenya Shillings
+
+#### Step 1: Update Monthly Pricing Plans
+
+**Current USD prices:**
+- Starter: $999/month
+- Professional: $2,999/month
+
+**Converted to Ksh (using 1 USD ≈ 130 Ksh):**
+- Starter: Ksh 129,870/month
+- Professional: Ksh 389,870/month
+
+#### Step 2: Update FAQs
+Consider updating pricing-related FAQ answers to reflect local currency.
+
+#### Step 3: Currency Formatting
+Update the price display format to include Ksh prefix:
+
+```typescript
+// Before
+price: "$999"
+
+// After
+price: "Ksh 129,870"
+```
+
+#### Step 4: Update Period Labels
+Keep the period labels as "/month" since that remains the same.
+
+#### Example Updated Plan Structure:
+```typescript
+{
+  name: "Starter",
+  price: "Ksh 129,870",
+  period: "/month",
+  description: "Perfect for small businesses getting started with AI",
+  // ... rest of the plan structure remains the same
+}
+```
+
+### Best Practices for Currency Implementation
+
+#### 1. Exchange Rate Considerations
+- Use current exchange rate: 1 USD ≈ 130 Ksh
+- Update prices periodically to reflect current rates
+- Consider using rounded figures for better readability
+
+#### 2. Localization
+- Format large numbers with commas: Ksh 129,870 instead of Ksh 129870
+- Consider adding currency symbols: Ksh or KES
+- Ensure consistent formatting across all pricing displays
+
+#### 3. Future Updates
+- Store exchange rates in environment variables
+- Implement currency conversion functions for easier updates
+- Document exchange rate source and update frequency
+
+### Testing Implementation
+
+#### Services Popup Testing
+1. Navigate to Services page
+2. Click "Learn More" on any service card
+3. Verify all information displays correctly
+4. Check responsive behavior on mobile
+5. Test modal close interactions
+
+#### Pricing Page Testing
+1. Navigate to Pricing page
+2. Verify all prices display in Ksh
+3. Check responsive layout
+4. Test CTA buttons functionality
+
+### Files Modified
+- `src/components/sections/ServicesSection.tsx` - Update service pricing
+- `src/pages/Pricing.tsx` - Update plan pricing
+
+### Additional Recommendations
+1. Consider adding a currency selector for multi-currency support
+2. Implement proper number formatting for large amounts
+3. Add tax information relevant to Kenyan market
+4. Include VAT calculations if required
+5. Consider payment gateways that support Ksh transactions

@@ -9,7 +9,7 @@ const Pricing = () => {
   const plans = [
     {
       name: "Starter",
-      price: "$999",
+      price: "Ksh 129,870",
       period: "/month",
       description: "Perfect for small businesses getting started with AI",
       features: [
@@ -24,7 +24,7 @@ const Pricing = () => {
     },
     {
       name: "Professional",
-      price: "$2,999",
+      price: "Ksh 389,870",
       period: "/month",
       description: "Advanced AI solutions for growing businesses",
       features: [
@@ -63,7 +63,6 @@ const Pricing = () => {
       <Header />
       
       <main className="pt-20">
-        {/* Hero Section */}
         <section className="py-20 bg-gradient-to-b from-background via-card/30 to-background">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto text-center">
@@ -73,11 +72,13 @@ const Pricing = () => {
               <p className="text-xl text-muted-foreground mb-8 animate-fade-in" style={{ animationDelay: "0.1s" }}>
                 Choose the perfect plan for your AI transformation journey
               </p>
+              <p className="text-sm text-muted-foreground/70 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+                All prices in Kenyan Shillings (Ksh) • VAT inclusive
+              </p>
             </div>
           </div>
         </section>
 
-        {/* Pricing Cards */}
         <section className="py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
@@ -131,7 +132,6 @@ const Pricing = () => {
           </div>
         </section>
 
-        {/* FAQ Section */}
         <section className="py-20 bg-gradient-to-b from-background to-card/30">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
@@ -157,7 +157,7 @@ const Pricing = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      We accept all major credit cards, bank transfers, and can arrange custom payment terms for Enterprise clients.
+                      We accept M-Pesa, bank transfers, credit/debit cards (Visa, Mastercard), and can arrange custom payment terms for Enterprise clients. All payments are processed securely in Kenyan Shillings.
                     </p>
                   </CardContent>
                 </Card>
@@ -179,7 +179,18 @@ const Pricing = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      We offer a 30-day money-back guarantee for all plans. If you're not satisfied, we'll provide a full refund.
+                      We offer a 30-day money-back guarantee for all plans. If you're not satisfied, we'll provide a full refund in Kenyan Shillings.
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-primary/20 bg-card/50 backdrop-blur-sm">
+                  <CardHeader>
+                    <CardTitle className="text-xl">Is VAT included in the pricing?</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">
+                      Yes, all displayed prices include 16% VAT as per Kenya Revenue Authority requirements. You'll receive a proper tax invoice for all payments.
                     </p>
                   </CardContent>
                 </Card>

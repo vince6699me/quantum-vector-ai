@@ -25,9 +25,16 @@ Preferred communication style: Simple, everyday language.
 
 **Component Structure**
 - Layout components: Header (fixed navigation with mobile menu) and Footer (company info, links, social media with Twitter, LinkedIn, YouTube, Telegram, GitHub)
-- Section components: HeroSection (with ParticleBackground and animated stats), FeaturesShowcase (with AIChatPreview demo), ServicesSection, TestimonialsSection (auto-rotating with navigation), SisterCompaniesSection, HowItWorksSection, ContactSection (with social links and quick action cards)
-- Page components: Index (home), About, Pricing, Services (with ServiceModal), Privacy, Terms, NotFound
+- Section components: HeroSection (with ParticleBackground and animated stats), FeaturesShowcase (with AIChatPreview demo), ServicesSection (with accessible Dialog modal showing detailed service info, features, benefits, use cases, timeline, and Ksh pricing), TestimonialsSection (auto-rotating with navigation), SisterCompaniesSection, HowItWorksSection, ContactSection (with social links and quick action cards)
+- Page components: Index (home), About, Pricing (with Ksh pricing and M-Pesa support), Services (with ServiceModal), Privacy, Terms, NotFound
 - Comprehensive UI component library (40+ components) from shadcn/ui including forms, dialogs, cards, navigation, etc.
+
+**Pricing & Currency**
+- All pricing displayed in Kenyan Shillings (Ksh)
+- Pricing tiers: Starter (Ksh 129,870/month), Professional (Ksh 389,870/month), Enterprise (Custom)
+- Service pricing ranges from Ksh 1,300,000 to Ksh 6,500,000 depending on service type
+- Payment methods: M-Pesa, bank transfers, credit/debit cards (Visa, Mastercard)
+- VAT inclusive pricing (16% as per Kenya Revenue Authority)
 
 **State Management**
 - React Query (TanStack Query v5) for server state management and caching

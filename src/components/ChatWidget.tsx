@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Minimize2 } from 'lucide-react';
+import { MessageCircle, X, Send, Minimize2, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -91,6 +91,17 @@ export const ChatWidget = () => {
     setHasNewMessage(false);
   };
 
+  const handleClearHistory = () => {
+    if (confirm('Are you sure you want to clear all chat history?')) {
+      setMessages([]);
+      localStorage.removeItem('chatMessages');
+      localStorage.removeItem('chatSessionId');
+      const newSessionId = generateSessionId();
+      setSessionId(newSessionId);
+      localStorage.setItem('chatSessionId', newSessionId);
+    }
+  };
+
   const handleSend = async (messageText?: string) => {
     const text = messageText || inputValue.trim();
     if (text) {
@@ -176,6 +187,25 @@ export const ChatWidget = () => {
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
+      {/* Chat Bubble Message when closed */}
+      {!isOpen && !isMinimized && (
+        <div className="mb-4 animate-chatbot-slide-up">
+          <Card className="w-auto max-w-xs bg-background border-border shadow-lg">
+            <div className="p-3 flex items-start gap-2">
+              <Avatar className="h-6 w-6 bg-primary flex-shrink-0 mt-0.5">
+                <AvatarFallback className="bg-primary text-primary-foreground text-xs">
+                  AI
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex-1">
+                <p className="text-xs text-muted-foreground font-medium">QuantumVector AI</p>
+                <p className="text-sm text-foreground">How may I help you?</p>
+              </div>
+            </div>
+          </Card>
+        </div>
+      )}
+
       {/* Chat Window */}
       {isOpen && !isMinimized && (
         <Card className="mb-4 w-[380px] h-[500px] flex flex-col shadow-2xl border-border bg-background animate-chatbot-slide-up">
@@ -200,6 +230,15 @@ export const ChatWidget = () => {
               <Button
                 variant="ghost"
                 size="icon"
+                onClick={handleClearHistory}
+                className="h-8 w-8"
+                title="Clear chat history"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
                 onClick={() => setIsMinimized(true)}
                 className="h-8 w-8"
               >
@@ -217,7 +256,7 @@ export const ChatWidget = () => {
           </div>
 
           {/* Messages */}
-          <ScrollArea className="flex-1 p-4" ref={scrollRef}>
+          <ScrollArea className="flex-1 p-4 overflow-hidden">
             <div className="space-y-4">
               {messages.map((message) => (
                 <div

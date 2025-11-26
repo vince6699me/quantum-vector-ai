@@ -105,6 +105,7 @@ export const ChatWidget = () => {
       setIsTyping(true);
 
       try {
+        console.log('Sending message to webhook:', text);
         const response = await fetch('https://n8n.fpr.net/webhook-test/chatbot', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -112,12 +113,28 @@ export const ChatWidget = () => {
             message: text
           })
         });
+        
+        console.log('Webhook response status:', response.status);
         const data = await response.json();
+        console.log('Webhook response data:', data);
+        console.log('Data type:', typeof data);
+        console.log('Is array:', Array.isArray(data));
+        
+        let content = '';
         
         // Handle response format: [{ output: "..." }]
-        const content = Array.isArray(data) && data.length > 0 && data[0].output
-          ? data[0].output
-          : data.output || data.response || data.message || data.content || JSON.stringify(data);
+        if (Array.isArray(data) && data.length > 0) {
+          console.log('First item in array:', data[0]);
+          console.log('Has output field:', 'output' in data[0]);
+          content = data[0].output || data[0].response || data[0].message || JSON.stringify(data[0]);
+        } else if (data && typeof data === 'object') {
+          console.log('Object response, checking fields:', Object.keys(data));
+          content = data.output || data.response || data.message || data.content || JSON.stringify(data);
+        } else {
+          content = JSON.stringify(data);
+        }
+        
+        console.log('Final content to display:', content);
         
         setTimeout(() => {
           const botMessage: Message = {
@@ -131,6 +148,11 @@ export const ChatWidget = () => {
         }, 500);
       } catch (error) {
         console.error('Webhook error:', error);
+        console.error('Error details:', {
+          name: (error as Error).name,
+          message: (error as Error).message,
+          stack: (error as Error).stack
+        });
         setTimeout(() => {
           const errorMessage: Message = {
             id: (Date.now() + 1).toString(),

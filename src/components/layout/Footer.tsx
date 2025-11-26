@@ -41,24 +41,24 @@ export const Footer = () => {
             <h3 className="font-semibold mb-4">Services</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#services" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link to="/services" className="text-muted-foreground hover:text-foreground transition-colors">
                   AI Integration
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link to="/services" className="text-muted-foreground hover:text-foreground transition-colors">
                   Chatbot Solutions
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link to="/services" className="text-muted-foreground hover:text-foreground transition-colors">
                   Content Generation
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link to="/services" className="text-muted-foreground hover:text-foreground transition-colors">
                   Custom LLM Development
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -73,9 +73,9 @@ export const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a href="/#contact" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link to="/#contact" className="text-muted-foreground hover:text-foreground transition-colors">
                   Contact
-                </a>
+                </Link>
               </li>
               <li>
                 <Link to="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">

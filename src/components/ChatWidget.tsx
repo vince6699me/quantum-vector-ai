@@ -116,64 +116,48 @@ export const ChatWidget = () => {
       setIsTyping(true);
 
       try {
-        console.log('Sending message to webhook:', text);
-        const response = await fetch('https://n8n.fpr.net/webhook-test/chatbot', {
+        console.log('Sending message to webhook:', text, 'Session:', sessionId);
+        const response = await fetch('https://n8n.fpr.net/webhook/chatbot', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
-            message: text
+            message: text,
+            sessionId
           })
         });
         
-        console.log('Webhook response status:', response.status);
-        const data = await response.json();
-        console.log('Webhook response data:', data);
-        console.log('Data type:', typeof data);
-        console.log('Is array:', Array.isArray(data));
+        const textResponse = await response.text();
+        let content = textResponse.trim();
         
-        let content = '';
-        
-        // Handle response format: [{ output: "..." }]
-        if (Array.isArray(data) && data.length > 0) {
-          console.log('First item in array:', data[0]);
-          console.log('Has output field:', 'output' in data[0]);
-          content = data[0].output || data[0].response || data[0].message || JSON.stringify(data[0]);
-        } else if (data && typeof data === 'object') {
-          console.log('Object response, checking fields:', Object.keys(data));
-          content = data.output || data.response || data.message || data.content || JSON.stringify(data);
-        } else {
-          content = JSON.stringify(data);
+        // Try to parse as JSON if it's not empty
+        if (content && !content.startsWith('<')) {
+          try {
+            const data = JSON.parse(textResponse);
+            const firstItem = Array.isArray(data) ? data[0] : data;
+            content = firstItem?.output || firstItem?.text || firstItem?.response || firstItem?.message || firstItem?.content || JSON.stringify(data);
+          } catch (parseError) {
+            // If not JSON, use raw text
+          }
         }
         
-        console.log('Final content to display:', content);
-        
-        setTimeout(() => {
-          const botMessage: Message = {
-            id: (Date.now() + 1).toString(),
-            type: 'bot',
-            content: content,
-            timestamp: Date.now()
-          };
-          setMessages(prev => [...prev, botMessage]);
-          setIsTyping(false);
-        }, 500);
+        const botMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          type: 'bot',
+          content: content || '',
+          timestamp: Date.now()
+        };
+        setMessages(prev => [...prev, botMessage]);
+        setIsTyping(false);
       } catch (error) {
-        console.error('Webhook error:', error);
-        console.error('Error details:', {
-          name: (error as Error).name,
-          message: (error as Error).message,
-          stack: (error as Error).stack
-        });
-        setTimeout(() => {
-          const errorMessage: Message = {
-            id: (Date.now() + 1).toString(),
-            type: 'bot',
-            content: 'I\'m here to help! Could you rephrase that question?',
-            timestamp: Date.now()
-          };
-          setMessages(prev => [...prev, errorMessage]);
-          setIsTyping(false);
-        }, 500);
+        console.error('Webhook connection error:', error);
+        const errorMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          type: 'bot',
+          content: 'Unable to connect to service. Please try again later.',
+          timestamp: Date.now()
+        };
+        setMessages(prev => [...prev, errorMessage]);
+        setIsTyping(false);
       }
     }
   };

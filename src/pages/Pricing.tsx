@@ -9,7 +9,7 @@ const Pricing = () => {
   const plans = [
     {
       name: "Starter",
-      price: "Ksh 129,870",
+      price: "Ksh 1,500",
       period: "/month",
       description: "Perfect for small businesses getting started with AI",
       features: [
@@ -24,7 +24,7 @@ const Pricing = () => {
     },
     {
       name: "Professional",
-      price: "Ksh 389,870",
+      price: "Ksh 3,500",
       period: "/month",
       description: "Advanced AI solutions for growing businesses",
       features: [

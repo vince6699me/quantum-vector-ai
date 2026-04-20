@@ -1,0 +1,802 @@
+{
+  "name": "QuantumVector AI Customer Care Bot",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": ["message"],
+        "options": {}
+      },
+      "id": "telegram-trigger",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300],
+      "credentials": {
+        "telegramApi": ""
+      },
+      "webhookId": "quantum-bot"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "messageText",
+              "value": "={{ $json.message.text }}"
+            },
+            {
+              "name": "chatType",
+              "value": "={{ $json.message.chat.type }}"
+            },
+            {
+              "name": "chatId",
+              "value": "={{ $json.message.chat.id }}"
+            },
+            {
+              "name": "userId",
+              "value": "={{ $json.message.from.id }}"
+            },
+            {
+              "name": "userName",
+              "value": "={{ $json.message.from.first_name }}"
+            },
+            {
+              "name": "userUsername",
+              "value": "={{ $json.message.from.username }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "extract-data",
+      "name": "Extract Message Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.chatType }}",
+              "operation": "equals",
+              "value2": "private"
+            }
+          ]
+        }
+      },
+      "id": "is-private-chat",
+      "name": "Is Private Chat?",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.messageText }}",
+              "operation": "startsWith",
+              "value2": "/start"
+            }
+          ]
+        }
+      },
+      "id": "is-start-command",
+      "name": "Is /start Command?",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [850, 200]
+    },
+    {
+      "parameters": {
+        "text": "Welcome to QuantumVector AI! 🤖\n\nI'm here to help you with:\n\n📚 *FAQs* - Get answers to common questions\n📅 *Book Services* - Schedule a consultation\n💬 *General Inquiries* - Learn about our AI solutions\n\nType /services to see what we offer, /pricing for pricing details, /contact for contact info, or /help to see all commands.",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "send-welcome",
+      "name": "Send Welcome Message",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1050, 200],
+      "credentials": {
+        "telegramApi": ""
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.messageText }}",
+              "operation": "contains",
+              "value2": "/help"
+            }
+          ]
+        }
+      },
+      "id": "is-help-command",
+      "name": "Is /help Command?",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [850, 350]
+    },
+    {
+      "parameters": {
+        "text": "📋 *Available Commands*\n\n/start - Start the bot\n/services - View our AI services\n/pricing - View pricing plans\n/contact - Contact information\n/book - Book a service\n/help - Show this help menu\n\nYou can also just ask me questions like:\n• \"What services do you offer?\"\n• \"How much does it cost?\"\n• \"How can I contact you?\"",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "send-help",
+      "name": "Send Help Message",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1050, 350],
+      "credentials": {
+        "telegramApi": ""
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.messageText }}",
+              "operation": "contains",
+              "value2": "/services"
+            }
+          ]
+        }
+      },
+      "id": "is-services-command",
+      "name": "Is /services Command?",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [850, 500]
+    },
+    {
+      "parameters": {
+        "text": "Our AI Services:\n\n1️⃣ *Customer Care Chatbots* - $2,500/mo\n   24/7 AI-powered customer support\n\n2️⃣ *Marketing Content Generation* - $1,500/mo\n   SEO-optimized content at scale\n\n3️⃣ *Lead Generation & Qualification* - $3,000/mo\n   Automated lead scoring\n\n4️⃣ *Custom LLM Development* - From $25,000\n   Domain-specific language models\n\n5️⃣ *Predictive Analytics* - $4,000/mo\n   AI-powered forecasting\n\n6️⃣ *Document Intelligence* - $2,000/mo\n   OCR and data extraction\n\n7️⃣ *Voice AI Solutions* - $3,500/mo\n   Speech-to-text & voice assistants\n\n8️⃣ *Computer Vision* - $5,000/mo\n   Image recognition & QC\n\n9️⃣ *AI-Powered Search* - $2,500/mo\n   Semantic search solutions\n\n🔟 *AI Integration Consulting* - $10,000/project\n   Strategic AI guidance\n\n1️⃣1️⃣ *Customer Service Hub* - $6,000/mo\n   Omnichannel support platform\n\n\nType /book to book a service!",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "send-services",
+      "name": "Send Services List",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1050, 500],
+      "credentials": {
+        "telegramApi": ""
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.messageText }}",
+              "operation": "contains",
+              "value2": "/pricing"
+            }
+          ]
+        }
+      },
+      "id": "is-pricing-command",
+      "name": "Is /pricing Command?",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [850, 600]
+    },
+    {
+      "parameters": {
+        "text": "💰 *Pricing Plans*\n\n*Starter* - Ksh 129,870/month\n• AI Chatbot Integration\n• Basic Data Analysis\n• 5 Custom Models\n• Email Support\n\n*Professional* - Ksh 389,870/month\n• Everything in Starter\n• Advanced Predictive Analytics\n• 20 Custom Models\n• Priority Support\n• Dedicated Account Manager\n\n*Enterprise* - Custom Pricing\n• Unlimited Custom Models\n• 24/7 Premium Support\n• On-Premise Deployment\n• SLA Guarantee\n\nAll prices include 16% VAT.\nType /book to get started!",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "send-pricing",
+      "name": "Send Pricing",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1050, 600],
+      "credentials": {
+        "telegramApi": ""
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.messageText }}",
+              "operation": "contains",
+              "value2": "/contact"
+            }
+          ]
+        }
+      },
+      "id": "is-contact-command",
+      "name": "Is /contact Command?",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [850, 700]
+    },
+    {
+      "parameters": {
+        "text": "📞 *Contact Information*\n\n*Email*: quantumvectorllc@gmail.com\n*Phone*: +1 (555) 012-3456\n*Office*: San Francisco, CA, USA\n\n*Business Hours*:\nMon-Fri: 9:00 AM - 6:00 PM PST\nWeekend: Emergency support available\n\nAverage response time: 2 hours",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "send-contact",
+      "name": "Send Contact Info",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1050, 700],
+      "credentials": {
+        "telegramApi": ""
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.messageText }}",
+              "operation": "contains",
+              "value2": "/book"
+            }
+          ]
+        }
+      },
+      "id": "is-book-command",
+      "name": "Is /book Command?",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [850, 800]
+    },
+    {
+      "parameters": {
+        "text": "Great! Let's book a service for you. 📅\n\nPlease provide the following information:\n\n1️⃣ *Which service are you interested in?*\n   (e.g., Chatbots, Content Generation, Lead Generation)\n\n2️⃣ *Your company name*\n\n3️⃣ *Your email address*\n\n4️⃣ *Brief description of what you need*\n\nJust reply with this information and our team will contact you within 2 hours!",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "send-book-prompt",
+      "name": "Send Booking Prompt",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1050, 800],
+      "credentials": {
+        "telegramApi": ""
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.chatType }}",
+              "operation": "notEqual",
+              "value2": "private"
+            }
+          ]
+        }
+      },
+      "id": "is-group-chat",
+      "name": "Is Group Chat?",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [650, 500]
+    },
+    {
+      "parameters": {
+        "text": "🔔 *New Group Message*\n\n*From:* {{ $json.userName }}\n*Group:* {{ $json.message.chat.title }}\n*Message:* {{ $json.message.text }}\n\nPlease review and respond if needed.",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "notify-owner-group",
+      "name": "Notify Owner - Group",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [850, 500],
+      "credentials": {
+        "telegramApi": ""
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const message = $input.first().json.messageText || '';\nconst lowerMessage = message.toLowerCase();\n\n// FAQ responses\nconst faqs = {\n  'what is quantumvector': 'QuantumVector AI provides AI solutions including chatbots, content generation, predictive analytics, and more. We help businesses integrate AI into their operations.',\n  'what services do you offer': 'We offer 11 AI services: Chatbots, Content Generation, Lead Generation, Custom LLM, Predictive Analytics, Document Intelligence, Voice AI, Computer Vision, AI Search, Consulting, and Customer Service Hub. Type /services for details.',\n  'how much': 'Our pricing starts at Ksh 129,870/month. Type /pricing for details.',\n  'price': 'Our pricing starts at Ksh 129,870/month. Type /pricing for details.',\n  'pricing': 'Our pricing starts at Ksh 129,870/month. Type /pricing for details.',\n  'how to book': 'Type /book to start the booking process.',\n  'contact': 'Email: quantumvectorllc@gmail.com, Phone: +1 (555) 012-3456. Type /contact for more info.',\n  'email': 'Our email is quantumvectorllc@gmail.com',\n  'phone': 'Our phone is +1 (555) 012-3456',\n  'location': 'Our office is in San Francisco, CA, USA',\n  'office': 'Our office is in San Francisco, CA, USA',\n  'delivery time': 'Timelines: Chatbots 2-4 weeks, Content 1-2 weeks, Lead Generation 3-4 weeks, Custom LLM 8-12 weeks.',\n  'timeline': 'Timelines: Chatbots 2-4 weeks, Content 1-2 weeks, Lead Generation 3-4 weeks, Custom LLM 8-12 weeks.',\n  'refund': 'We offer a 30-day money-back guarantee for all plans.',\n  'money back': 'We offer a 30-day money-back guarantee for all plans.',\n  'support': 'We offer email support (Starter), priority support (Professional), and 24/7 premium support (Enterprise).',\n  'payment': 'We accept M-Pesa, bank transfers, credit/debit cards (Visa, Mastercard). All prices include 16% VAT.',\n  'vat': 'Yes, all prices include 16% VAT as per Kenya Revenue Authority requirements.'\n};\n\n// Check for FAQ match\nlet matchedFaq = null;\nfor (const [key, value] of Object.entries(faqs)) {\n  if (lowerMessage.includes(key)) {\n    matchedFaq = value;\n    break;\n  }\n}\n\n// Check for booking intent\nconst bookingKeywords = ['book', 'interested', 'purchase', 'buy', 'order', 'hire', 'need'];\nconst hasBookingIntent = bookingKeywords.some(keyword => lowerMessage.includes(keyword));\n\n// Check for greetings\nconst greetings = ['hello', 'hi', 'hey', 'good morning', 'good afternoon', 'good evening'];\nconst isGreeting = greetings.some(greet => lowerMessage.includes(greet));\n\n// Check for email (potential booking info)\nconst hasEmail = message.includes('@');\n\nreturn {\n  json: {\n    matchedFaq,\n    hasBookingIntent,\n    hasEmail,\n    isGreeting,\n    originalMessage: message,\n    chatId: $input.first().json.chatId,\n    userId: $input.first().json.userId,\n    userName: $input.first().json.userName,\n    userUsername: $input.first().json.userUsername\n  }\n};"
+      },
+      "id": "process-message",
+      "name": "Process Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.matchedFaq }}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "has-faq",
+      "name": "Has FAQ Match?",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [1450, 200]
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.matchedFaq }}",
+        "additionalFields": {}
+      },
+      "id": "send-faq-response",
+      "name": "Send FAQ Response",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1650, 200],
+      "credentials": {
+        "telegramApi": ""
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.hasBookingIntent }}",
+              "operation": "equals",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "has-booking-intent",
+      "name": "Has Booking Intent?",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [1450, 400]
+    },
+    {
+      "parameters": {
+        "text": "It sounds like you're interested in our services! 🎉\n\nType /book to start the booking process and our team will contact you within 2 hours.",
+        "additionalFields": {}
+      },
+      "id": "booking-intent-response",
+      "name": "Booking Intent Response",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1650, 400],
+      "credentials": {
+        "telegramApi": ""
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.hasEmail }}",
+              "operation": "equals",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "has-email",
+      "name": "Has Email?",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [1450, 600]
+    },
+    {
+      "parameters": {
+        "text": "🔔 *New Service Booking Request*\n\n*From:* {{ $json.userName }}\n*Username:* @{{ $json.userUsername }}\n*User ID:* {{ $json.userId }}\n*Chat ID:* {{ $json.chatId }}\n\n*Message:*\n{{ $json.originalMessage }}\n\nPlease contact this client ASAP!",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "notify-owner-booking",
+      "name": "Notify Owner - Booking",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1650, 600],
+      "credentials": {
+        "telegramApi": ""
+      }
+    },
+    {
+      "parameters": {
+        "text": "Thank you! Your request has been received. 🎉\n\nOur team will contact you within 2 hours during business hours.\n\nFor urgent inquiries, email us at quantumvectorllc@gmail.com",
+        "additionalFields": {}
+      },
+      "id": "booking-confirmation",
+      "name": "Booking Confirmation",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1850, 600],
+      "credentials": {
+        "telegramApi": ""
+      }
+    },
+    {
+      "parameters": {
+        "text": "I didn't quite understand that. 😕\n\nHere are some things I can help with:\n\n• Type *\/services* to see our services\n• Type *\/pricing* to see pricing plans\n• Type *\/book* to book a service\n• Type *\/contact* for contact info\n• Type *\/help* for all commands\n\nOr ask me questions like \"What services do you offer?\" or \"How much does it cost?\"",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "cant-handle-response",
+      "name": "Can't Handle Response",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1650, 800],
+      "credentials": {
+        "telegramApi": ""
+      }
+    },
+    {
+      "parameters": {
+        "text": "🔔 *Unhandled Message Alert*\n\n*From:* {{ $json.userName }} (ID: {{ $json.userId }})\n*Chat ID:* {{ $json.chatId }}\n\n*Message:*\n{{ $json.originalMessage }}\n\nPlease assist this customer manually.",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "notify-owner-unhandled",
+      "name": "Notify Owner - Unhandled",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1850, 800],
+      "credentials": {
+        "telegramApi": ""
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.isGreeting }}",
+              "operation": "equals",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "is-greeting",
+      "name": "Is Greeting?",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [1450, 350]
+    },
+    {
+      "parameters": {
+        "text": "Hello {{ $json.userName }}! 👋\n\nWelcome to QuantumVector AI! I'm here to help you learn about our AI services and book consultations.\n\nType /services to see what we offer, /pricing for pricing, or /help for all options!",
+        "additionalFields": {}
+      },
+      "id": "send-greeting",
+      "name": "Send Greeting",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1650, 350],
+      "credentials": {
+        "telegramApi": ""
+      }
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Message Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Message Data": {
+      "main": [
+        [
+          {
+            "node": "Is Private Chat?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Private Chat": {
+      "main": [
+        [
+          {
+            "node": "Is /start Command?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is Group Chat?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is /start Command": {
+      "main": [
+        [
+          {
+            "node": "Send Welcome Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is /help Command": {
+      "main": [
+        [
+          {
+            "node": "Send Help Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is /services Command": {
+      "main": [
+        [
+          {
+            "node": "Send Services List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is /pricing Command": {
+      "main": [
+        [
+          {
+            "node": "Send Pricing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is /contact Command": {
+      "main": [
+        [
+          {
+            "node": "Send Contact Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is /book Command": {
+      "main": [
+        [
+          {
+            "node": "Send Booking Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Group Chat": {
+      "main": [
+        [
+          {
+            "node": "Notify Owner - Group",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify Owner - Group": {
+      "main": [
+        [
+          {
+            "node": "Process Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Welcome Message": {
+      "main": [
+        []
+      ]
+    },
+    "Send Help Message": {
+      "main": [
+        []
+      ]
+    },
+    "Send Services List": {
+      "main": [
+        []
+      ]
+    },
+    "Send Pricing": {
+      "main": [
+        []
+      ]
+    },
+    "Send Contact Info": {
+      "main": [
+        []
+      ]
+    },
+    "Send Booking Prompt": {
+      "main": [
+        [
+          {
+            "node": "Process Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Message": {
+      "main": [
+        [
+          {
+            "node": "Has FAQ Match?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has FAQ Match": {
+      "main": [
+        [
+          {
+            "node": "Send FAQ Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is Greeting?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send FAQ Response": {
+      "main": [
+        []
+      ]
+    },
+    "Is Greeting": {
+      "main": [
+        [
+          {
+            "node": "Send Greeting",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Has Booking Intent?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Greeting": {
+      "main": [
+        []
+      ]
+    },
+    "Has Booking Intent": {
+      "main": [
+        [
+          {
+            "node": "Booking Intent Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Has Email?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Booking Intent Response": {
+      "main": [
+        []
+      ]
+    },
+    "Has Email": {
+      "main": [
+        [
+          {
+            "node": "Notify Owner - Booking",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Can't Handle Response",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Notify Owner - Unhandled",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify Owner - Booking": {
+      "main": [
+        [
+          {
+            "node": "Booking Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Booking Confirmation": {
+      "main": [
+        []
+      ]
+    },
+    "Can't Handle Response": {
+      "main": [
+        []
+      ]
+    },
+    "Notify Owner - Unhandled": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

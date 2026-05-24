@@ -62,7 +62,7 @@ Preferred communication style: Simple, everyday language.
 - TypeScript with relaxed strictness settings for flexible development
 - ESLint with React-specific rules for code quality
 - Vite with React SWC for fast builds and hot module replacement
-- lovable-tagger plugin for development mode component tagging
+- Vite React SWC plugin for fast builds and hot module replacement
 
 **Forms & Validation**
 - react-hook-form: Performant form state management

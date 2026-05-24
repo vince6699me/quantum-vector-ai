@@ -2,7 +2,7 @@
 
 ## Company Overview
 
-**QuantumVector AI** is a leading provider of artificial intelligence solutions that transform businesses by integrating cutting-edge AI technologies into their operations. The company is headquartered in San Francisco, California, United States, and serves clients globally.
+**QuantumVector AI** is a leading provider of artificial intelligence solutions that transform businesses by integrating cutting-edge AI technologies into their operations. The company is headquartered in Ngara, Nairobilifornia, Kenya, and serves clients globally.
 
 ### Mission Statement
 At QuantumVector AI, the mission is to democratize artificial intelligence and make advanced AI solutions accessible to businesses of all sizes. The company believes that AI should empower, not complicate, and creates intelligent systems that seamlessly integrate into existing workflows.
@@ -181,10 +181,10 @@ Tailored AI solutions for large organizations.
 - **General Inquiries**: quantumvectorllc@gmail.com
 
 ### Phone
-- **Main Phone**: +1 (555) 012-3456
+- **Main Phone**: (+254) 702-386-899
 
 ### Office Address
-- **Location**: San Francisco, CA, United States
+- **Location**: Ngara, Nairobi, Kenya
 
 ### Social Media
 - **Twitter**: https://twitter.com/QuantumvectorA
@@ -229,7 +229,7 @@ Yes, you can upgrade or downgrade your plan at any time. Changes will be reflect
 
 ## How to Get Started
 
-1. **Contact Us**: Reach out via email at quantumvectorllc@gmail.com or call +1 (555) 012-3456
+1. **Contact Us**: Reach out via email at quantumvectorllc@gmail.com or call (+254) 702-386-899
 2. **Consultation**: Our team will discuss your business needs and recommend suitable AI solutions
 3. **Proposal**: Receive a customized proposal with pricing and timeline
 4. **Implementation**: Our team will deploy the solution within the specified timeline

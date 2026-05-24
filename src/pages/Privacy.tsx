@@ -75,7 +75,7 @@ const Privacy = () => {
                   <br />
                   Email: quantumvectorllc@gmail.com
                   <br />
-                  Phone: +1 (555) 012-3456
+                  Phone: (+254)702-386-899
                 </p>
               </section>
 

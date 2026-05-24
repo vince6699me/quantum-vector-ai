@@ -155,7 +155,7 @@ export const ContactSection = () => {
                 <div>
                   <div className="font-medium mb-1">Phone</div>
                   <a href="tel:+15550123456" className="text-muted-foreground hover:text-primary transition-colors">
-                    +1 (555) 012-3456
+                    (+254)702-386-899
                   </a>
                 </div>
               </div>
@@ -167,8 +167,8 @@ export const ContactSection = () => {
                 <div>
                   <div className="font-medium mb-1">Office</div>
                   <p className="text-muted-foreground">
-                    San Francisco, CA<br />
-                    United States
+                    Ngara, Nairobi<br />
+                        Kenya
                   </p>
                 </div>
               </div>

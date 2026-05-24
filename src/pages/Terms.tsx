@@ -71,7 +71,7 @@ const Terms = () => {
               <section>
                 <h2 className="text-2xl font-semibold mb-4">Governing Law</h2>
                 <p className="text-muted-foreground">
-                  These Terms shall be governed by and construed in accordance with the laws of the United States, without regard to its conflict of law provisions.
+                  These Terms shall be governed by and construed in accordance with the laws of the Kenya, without regard to its conflict of law provisions.
                 </p>
               </section>
 
@@ -82,7 +82,7 @@ const Terms = () => {
                   <br />
                   Email: quantumvectorllc@gmail.com
                   <br />
-                  Phone: +1 (555) 012-3456
+                  Phone: (+254)702-386-899
                 </p>
               </section>
 
